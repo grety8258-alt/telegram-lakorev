@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ghost Telegram</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background: #0a0a0a;
+            color: white;
+            font-family: Arial;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .ghost {
+            font-size: 60px;
+            margin: 20px;
+        }
+        .menu {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .menu-btn {
+            background: #1a1a1a;
+            border: 2px solid #0088cc;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .menu-btn:hover {
+            background: #0088cc;
+        }
+        .balance {
+            background: linear-gradient(45deg, #0088cc, #8a2be2);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .nft-card {
+            background: #1a1a1a;
+            border: 2px solid #ffd700;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+        .special-888 {
+            background: linear-gradient(45deg, #ffd700, #ff9500);
+            color: black;
+            font-weight: bold;
+        }
+        .page {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="ghost">👻</div>
+            <h1>Ghost Telegram</h1>
+            <p>Анонимный мессенджер с NFT</p>
+        </div>
+        
+        <div class="balance">
+            <h3>💰 Ваш баланс</h3>
+            <h2 id="balance">1000 ⭐</h2>
+            <p>Telegram Stars</p>
+        </div>
+        
+        <div class="menu">
+            <div class="menu-btn" onclick="showPage('chat')">💬 Чат</div>
+            <div class="menu-btn" onclick="showPage('auction')">🎪 Аукцион</div>
+            <div class="menu-btn" onclick="showPage('nft')">🖼 NFT</div>
+            <div class="menu-btn" onclick="showPage('gifts')">🎁 Подарки</div>
+            <div class="menu-btn" onclick="showPage('stars')">⭐ Звёзды</div>
+            <div class="menu-btn" onclick="showPage('collection')">🔢 Коллекция</div>
+        </div>
+        
+        <!-- Страница чата -->
+        <div id="chatPage" class="page">
+            <h3>💬 Чаты</h3>
+            <div class="chat-list">
+                <div class="chat-item">👤 Поддержка</div>
+                <div class="chat-item">👥 Группа NFT</div>
+                <div class="chat-item">👨 Друг</div>
+            </div>
+            <input type="text" placeholder="Введите сообщение..." style="width:100%;padding:10px;margin-top:10px;">
+            <button style="width:100%;padding:10px;background:#0088cc;color:white;border:none;margin-top:10px;">
+                Отправить
+            </button>
+        </div>
+        
+        <!-- Страница аукциона -->
+        <div id="auctionPage" class="page" style="display:none;">
+            <h3>🎪 NFT Аукцион</h3>
+            <div class="nft-card special-888">
+                <h4>🍀 #888 - Lucky 888</h4>
+                <p>Текущая цена: 8888 ⭐</p>
+                <p>До конца: 02:15:30</p>
+                <button onclick="placeBid(888)">Сделать ставку</button>
+            </div>
+            <div class="nft-card">
+                <h4>#777 - Lucky 777</h4>
+                <p>Текущая цена: 7777 ⭐</p>
+                <button onclick="placeBid(777)">Сделать ставку</button>
+            </div>
+        </div>
+        
+        <!-- Страница NFT -->
+        <div id="nftPage" class="page" style="display:none;">
+            <h3>🖼 Мои NFT</h3>
+            <div class="nft-card">
+                <h4>#1001 - Первый NFT</h4>
+                <p>Редкость: Обычный</p>
+                <button onclick="sellNFT(1001)">Продать на аукционе</button>
+            </div>
+        </div>
+        
+        <!-- Страница подарков -->
+        <div id="giftsPage" class="page" style="display:none;">
+            <h3>🎁 Магазин подарков</h3>
+            <div class="menu">
+                <div class="menu-btn" onclick="buyGift('🎈', 10)">🎈 10 ⭐</div>
+                <div class="menu-btn" onclick="buyGift('🎂', 50)">🎂 50 ⭐</div>
+                <div class="menu-btn" onclick="buyGift('👑', 100)">👑 100 ⭐</div>
+                <div class="menu-btn" onclick="buyGift('🐸', 500)">🐸 500 ⭐</div>
+            </div>
+        </div>
+        
+        <!-- Страница коллекции -->
+        <div id="collectionPage" class="page" style="display:none;">
+            <h3>🔢 Коллекционные номера</h3>
+            <div class="nft-card special-888">
+                <h4>🍀 #888 - Lucky 888</h4>
+                <p>Самый удачный номер</p>
+                <p>Цена: 8888 ⭐</p>
+            </div>
+            <div class="nft-card">
+                <h4>🎰 #777 - Lucky 777</h4>
+                <p>Для выигрышей</p>
+            </div>
+            <div class="nft-card">
+                <h4>👑 #999 - Ultimate 999</h4>
+                <p>Символ совершенства</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let userBalance = 1000;
+        
+        function showPage(pageName) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.style.display = 'none';
+            });
+            document.getElementById(pageName + 'Page').style.display = 'block';
+            document.getElementById('balance').textContent = userBalance + ' ⭐';
+        }
+        
+        function placeBid(number) {
+            const amount = prompt(`Сколько ⭐ ставите на #${number}?`, "100");
+            if (amount && userBalance >= parseInt(amount)) {
+                userBalance -= parseInt(amount);
+                alert(`Ставка ${amount} ⭐ на #${number} принята!`);
+                document.getElementById('balance').textContent = userBalance + ' ⭐';
+            } else {
+                alert('Недостаточно ⭐ или отменено');
+            }
+        }
+        
+        function buyGift(gift, price) {
+            if (userBalance >= price) {
+                userBalance -= price;
+                alert(`Вы купили ${gift} за ${price} ⭐!`);
+                document.getElementById('balance').textContent = userBalance + ' ⭐';
+            } else {
+                alert(`Недостаточно ⭐! Нужно: ${price}, у вас: ${userBalance}`);
+            }
+        }
+        
+        function sellNFT(number) {
+            const price = prompt(`За сколько ⭐ продаём #${number}?`, "100");
+            if (price) {
+                alert(`NFT #${number} выставлен на аукцион за ${price} ⭐`);
+            }
+        }
+        
+        showPage('chat');
+    </script>
+</body>
+</html>
